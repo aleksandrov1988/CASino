@@ -31,7 +31,7 @@ ru:
       column_services: "Сервисы"
       column_activity: "Текущая активность"
     current_session: "Текущий сеанс"
-    end_session: "End session"
+    end_session: "Сессия завершилась"
   two_factor_authenticators:
     title: "Двухфакторная аутентификация"
     setup: "Настройка двухфакторной аутентификации"
