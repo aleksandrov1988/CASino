@@ -18,12 +18,12 @@ ru:
     submit: "Продолжить"
     invalid_otp: "Одноразовый пароль некорректен."
   logout:
-    title: "Всего доброго."
+    title: "Всего доброго!"
     logged_out_without_url: "Сеанс работы завершен."
     logged_out_with_url: "Сеанс работы заверешен. Пожалуйста, пройдите по ссылке"
   sessions:
     title: "Добро пожаловать!"
-    currently_logged_in_as: "Вы авторизовались под именем пользователя <strong>%{username}</strong>."
+    currently_logged_in_as: "Вы авторизовались под именем пользователя <b>%{username}</b>."
     label_logout_button: "Выйти"
     your_active_sessions: "Ваши активные сеансы"
     table:
@@ -31,7 +31,7 @@ ru:
       column_services: "Сервисы"
       column_activity: "Текущая активность"
     current_session: "Текущий сеанс"
-    end_session: "Сессия завершилась"
+    end_session: "Завершить сессию"
   two_factor_authenticators:
     title: "Двухфакторная аутентификация"
     setup: "Настройка двухфакторной аутентификации"
