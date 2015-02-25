@@ -1,0 +1,51 @@
+en:
+  login_credential_acceptor:
+    invalid_login_ticket: "Ваш запрос на авторизацию не содержит корректную информацию об авторизации."
+    invalid_login_credentials: "Неверное имя пользователя и пароль."
+  login:
+    label_username: "Имя пользователя"
+    label_password: "Пароль"
+    label_button: "Войти"
+    label_remember_me: "Запомнить меня"
+    notice: ""
+  service_not_allowed:
+    title: "Доступ для данного сервиса запрещен"
+    message: "Авторизация для сервиса \"%{service}\". Если Вы считаете, что это — ошибка, пожалуйста, свяжитесь с администратором."
+  validate_otp:
+    title: "Двухфакторная аутентификация"
+    description: "Пожалуйста, введите корректный одноразовый пароль."
+    code: "Код"
+    submit: "Продолжить"
+    invalid_otp: "Одноразовый пароль некорректен."
+  logout:
+    title: "Всего доброго."
+    logged_out_without_url: "Сеанс работы завершен."
+    logged_out_with_url: "Сеанс работы заверешен. Пожалуйста, пройдите по ссылке"
+  sessions:
+    title: "Добро пожаловать!"
+    currently_logged_in_as: "Вы авторизовались под именем пользователя <strong>%{username}</strong>."
+    label_logout_button: "Выйти"
+    your_active_sessions: "Ваши активные сеансы"
+    table:
+      column_browser: "Браузер"
+      column_services: "Сервисы"
+      column_activity: "Текущая активность"
+    current_session: "Текущий сеанс"
+    end_session: "End session"
+  two_factor_authenticators:
+    title: "Двухфакторная аутентификация"
+    setup: "Настройка двухфакторной аутентификации"
+    description: "Двухфакторная авторизация требует ввода дополнительного одноразового пароля при каждой попытке авторизации. Одноразовый пароль может быть получен с помощью приложения <a href='http://support.google.com/accounts/bin/answer.py?hl=en&answer=1066447'>Google Authenticator</a> на Вашем мобильном устройстве."
+    instructions: "Если Вы используете Google Authenticator, распознайте расположенный ниже QR с помощью приложения на Вашем мобильном устройстве. Введите код подтверждения в текстовое поле ниже."
+    disabled: "Выключено"
+    enable: "Включить"
+    enabled: "Включено"
+    disable: "Выключить"
+    cancel: "Отмена"
+    secret: "Секретно"
+    code: "Код подтверждения"
+    submit: "Подтвердить и включить"
+    invalid_one_time_password: "Введенный одноразовый пароль некорректен."
+    invalid_two_factor_authenticator: "Время для двухфакторной авторизации истекло. Пожалуйста, следуй инструкциям ниже."
+    successfully_activated: "Двухфакторная авторизация успешно подключена для данной учетной записи."
+    successfully_deleted: "Двухфакторная авторизация отключена для данной учетной записи."
