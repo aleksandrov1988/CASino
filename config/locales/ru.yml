@@ -1,4 +1,4 @@
-en:
+ru:
   login_credential_acceptor:
     invalid_login_ticket: "Ваш запрос на авторизацию не содержит корректную информацию об авторизации."
     invalid_login_credentials: "Неверное имя пользователя и пароль."
