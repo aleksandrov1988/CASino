@@ -6,18 +6,18 @@ class CASino::TicketGrantingTicket < ActiveRecord::Base
   belongs_to :user
   has_many :service_tickets, dependent: :destroy
 
-  has_one :session_log, dependent: :nullify
-  after_save :process_session_log
-
+  has_many :session_logs, dependent: :nullify
 
 
   def process_session_log(service=nil)
-    if session_log
-      session_log.touch
-    elsif service
-      create_session_log!(user: user, user_agent: user_agent, service: service, ip: remote_ip)
+    if service
+      log=session_logs.where(service: service).first
+      if log
+        log.touch
+      else
+        session_logs.create!(user: user, user_agent: user_agent, service: service, ip: remote_ip)
+      end
     end
-
     true
   end
 
