@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  username: MyString
+  ticket_granted_ticket_id: 
+  browser_info: MyString
+
+two:
+  username: MyString
+  ticket_granted_ticket_id: 
+  browser_info: MyString

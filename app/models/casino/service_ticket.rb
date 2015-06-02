@@ -5,6 +5,7 @@ class CASino::ServiceTicket < ActiveRecord::Base
   belongs_to :ticket_granting_ticket
   before_destroy :send_single_sign_out_notification, if: :consumed?
   has_many :proxy_granting_tickets, as: :granter, dependent: :destroy
+  after_create :create_session_log
 
   def self.cleanup_unconsumed
     self.delete_all(['created_at < ? AND consumed = ?', CASino.config.service_ticket[:lifetime_unconsumed].seconds.ago, false])
@@ -16,6 +17,12 @@ class CASino::ServiceTicket < ActiveRecord::Base
 
   def self.cleanup_consumed_hard
     self.delete_all(['created_at < ? AND consumed = ?', (CASino.config.service_ticket[:lifetime_consumed] * 2).seconds.ago, true])
+  end
+
+
+  def create_session_log
+    ticket_granting_ticket.process_session_log(service)
+    true
   end
 
 
@@ -33,10 +40,10 @@ class CASino::ServiceTicket < ActiveRecord::Base
 
   def expired?
     lifetime = if consumed?
-      CASino.config.service_ticket[:lifetime_consumed]
-    else
-      CASino.config.service_ticket[:lifetime_unconsumed]
-    end
+                 CASino.config.service_ticket[:lifetime_consumed]
+               else
+                 CASino.config.service_ticket[:lifetime_unconsumed]
+               end
     (Time.now - (self.created_at || Time.now)) > lifetime
   end
 

@@ -6,6 +6,20 @@ class CASino::TicketGrantingTicket < ActiveRecord::Base
   belongs_to :user
   has_many :service_tickets, dependent: :destroy
 
+  has_one :session_log, dependent: :nullify
+  after_save :process_session_log
+
+
+  def process_session_log(service=nil)
+    if session_log
+      session_log.touch
+    elsif service
+      create_session_log!(user: user, user_agent: user_agent, service: service)
+    end
+
+    true
+  end
+
   def self.cleanup(user = nil)
     if user.nil?
       base = self
@@ -13,13 +27,13 @@ class CASino::TicketGrantingTicket < ActiveRecord::Base
       base = user.ticket_granting_tickets
     end
     tgts = base.where([
-      '(created_at < ? AND awaiting_two_factor_authentication = ?) OR (created_at < ? AND long_term = ?) OR created_at < ?',
-      CASino.config.two_factor_authenticator[:timeout].seconds.ago,
-      true,
-      CASino.config.ticket_granting_ticket[:lifetime].seconds.ago,
-      false,
-      CASino.config.ticket_granting_ticket[:lifetime_long_term].seconds.ago
-    ])
+                          '(created_at < ? AND awaiting_two_factor_authentication = ?) OR (created_at < ? AND long_term = ?) OR created_at < ?',
+                          CASino.config.two_factor_authenticator[:timeout].seconds.ago,
+                          true,
+                          CASino.config.ticket_granting_ticket[:lifetime].seconds.ago,
+                          false,
+                          CASino.config.ticket_granting_ticket[:lifetime_long_term].seconds.ago
+                      ])
     CASino::ServiceTicket.where(ticket_granting_ticket_id: tgts).destroy_all
     tgts.destroy_all
   end
