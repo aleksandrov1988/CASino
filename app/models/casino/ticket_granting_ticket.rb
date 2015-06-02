@@ -65,6 +65,6 @@ class CASino::TicketGrantingTicket < ActiveRecord::Base
     else
       lifetime = CASino.config.ticket_granting_ticket[:lifetime]
     end
-    (Time.now - (self.created_at || Time.now)) > lifetime
+    (Time.now - (self.updated_at || Time.now)) > lifetime
   end
 end
