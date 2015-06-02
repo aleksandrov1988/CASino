@@ -20,9 +20,10 @@ class CASino::LoginCredentialAcceptorProcessor < CASino::Processor
   #
   # @param [Hash] params parameters supplied by user
   # @param [String] user_agent user-agent delivered by the client
-  def process(params = nil, user_agent = nil)
+  def process(params = nil, user_agent = nil, remote_ip = nil)
     @params = params || {}
     @user_agent = user_agent
+    @remote_ip=remote_ip
     if login_ticket_valid?(@params[:lt])
       authenticate_user
     else
@@ -42,14 +43,15 @@ class CASino::LoginCredentialAcceptorProcessor < CASino::Processor
 
   def user_logged_in(authentication_result)
     long_term = @params[:rememberMe]
-    ticket_granting_ticket = acquire_ticket_granting_ticket(authentication_result, @user_agent, long_term)
+    ticket_granting_ticket = acquire_ticket_granting_ticket(authentication_result, @user_agent, long_term, @remote_ip)
+
     if ticket_granting_ticket.awaiting_two_factor_authentication?
       @listener.two_factor_authentication_pending(ticket_granting_ticket.ticket)
     else
       begin
         url = unless @params[:service].blank?
-          acquire_service_ticket(ticket_granting_ticket, @params[:service], true).service_with_ticket_url
-        end
+                acquire_service_ticket(ticket_granting_ticket, @params[:service], true).service_with_ticket_url
+              end
         if long_term
           @listener.user_logged_in(url, ticket_granting_ticket.ticket, CASino.config.ticket_granting_ticket[:lifetime_long_term].seconds.from_now)
         else

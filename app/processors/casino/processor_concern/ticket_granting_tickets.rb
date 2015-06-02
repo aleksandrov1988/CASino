@@ -28,7 +28,7 @@ module CASino
         end
       end
 
-      def acquire_ticket_granting_ticket(authentication_result, user_agent = nil, long_term = nil)
+      def acquire_ticket_granting_ticket(authentication_result, user_agent = nil, long_term = nil, remote_ip=nil)
         user_data = authentication_result[:user_data]
         user = load_or_initialize_user(authentication_result[:authenticator], user_data[:username], user_data[:extra_attributes])
         cleanup_expired_ticket_granting_tickets(user)
@@ -36,8 +36,10 @@ module CASino
           ticket: random_ticket_string('TGC'),
           awaiting_two_factor_authentication: !user.active_two_factor_authenticator.nil?,
           user_agent: user_agent,
+          remote_ip: remote_ip,
           long_term: !!long_term
         })
+
       end
 
       def load_or_initialize_user(authenticator, username, extra_attributes)

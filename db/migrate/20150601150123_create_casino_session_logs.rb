@@ -5,6 +5,7 @@ class CreateCASinoSessionLogs < ActiveRecord::Migration
       t.belongs_to :ticket_granting_ticket, index: true
       t.text :user_agent
       t.text :service
+      t.inet :ip
 
       t.timestamps null: false
     end

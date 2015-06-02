@@ -10,11 +10,12 @@ class CASino::TicketGrantingTicket < ActiveRecord::Base
   after_save :process_session_log
 
 
+
   def process_session_log(service=nil)
     if session_log
       session_log.touch
     elsif service
-      create_session_log!(user: user, user_agent: user_agent, service: service)
+      create_session_log!(user: user, user_agent: user_agent, service: service, ip: remote_ip)
     end
 
     true
