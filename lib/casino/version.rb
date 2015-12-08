@@ -1,3 +1,3 @@
 module CASino
-  VERSION = '3.0.4own5'
+  VERSION = '3.0.4own6'
 end
