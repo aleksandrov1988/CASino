@@ -11,7 +11,8 @@
       if(service) {
         url += '?service=' + encodeURIComponent(service);
       }
-      win.location = url;
+      if (win.location.pathname + win.location.search + win.location.hash != url) 
+        win.location = url;
     } else {
       setTimeout(checkCookieExists, 1000);
     }
